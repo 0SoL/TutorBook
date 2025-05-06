@@ -19,34 +19,70 @@
     <p id="bio-text" class="collapsed">{{ teacher_profile.bio }}</p>
     <button id="toggle-btn" style="display: none;">Показать больше</button>
 </div>
+<div class="resume-section">
+    <h3><strong>Резюме</strong></h3>
+    <div class="container">
+      <input type="radio" name="tabs" id="radio-1" checked />
+      <input type="radio" name="tabs" id="radio-2" />
+  
+      <div class="tabs">
+        <label for="radio-1" class="tab">Опыт работы</label>
+        <label for="radio-2" class="tab">Сертификаты</label>
+        <span class="glider"></span>
+      </div>
+
+
+      <div class="tab-content">
+        <div class="tab-pane" id="content-1">
+            <div class='education-part'>
+                <p>2021-2024</p>
+                <div class='university-staj'>
+                    <p>Astana IT University</p>
+                    <p class='job'>Проффесор</p>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="content-2">
+            <div class='education-part'>
+                <p>2024-2024</p>
+                <div>
+                    <p>Выдающимся Инспектором Мира Чисел и Формул</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <div class='date-section'>
     <h3><strong>Расписание</strong></h3>
-    <table border="1" cellpadding="10">
-      <tr>
-          {% for date in grouped_schedule %}
-              <th>{{ date|date:"D, d M" }}</th>
-          {% endfor %}
-      </tr>
-      <tr>
-          {% for date, slots in grouped_schedule.items %}
-              <td>
-                  {% for slot in slots %}
-                      <div style="margin-bottom: 6px;">
-                          {{ slot.time|time:"H:i" }}
-                          {% if slot.is_booked %}
-                              <span style="color: red;">(Занято)</span>
-                          {% else %}
-                              <span style="color: green;">(Свободно)</span>
-                          {% endif %}
-                      </div>
-                  {% endfor %}
-              </td>
-          {% endfor %}
-      </tr>
-  </table>
-</div>
-<div class='resume-section'>
-    <h3>Резюме</h3>
+    {% if grouped_schedule %}
+        <table border="1" cellpadding="10">
+        <tr>
+            {% for date in grouped_schedule %}
+                <th>{{ date|date:"D, d M" }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for date, slots in grouped_schedule.items %}
+                <td>
+                    {% for slot in slots %}
+                        <div style="margin-bottom: 6px;">
+                            {{ slot.time|time:"H:i" }}
+                            {% if slot.is_booked %}
+                                <span style="color: red;">(Занято)</span>
+                            {% else %}
+                                <span style="color: green;">(Свободно)</span>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </td>
+            {% endfor %}
+        </tr>
+    </table>
+  {% else %}
+    <h3>Учитель не занялся расписанием</h3>
+  {% endif %}
+
 </div>
 
 

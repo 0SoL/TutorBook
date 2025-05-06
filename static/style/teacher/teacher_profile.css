@@ -61,3 +61,115 @@
     margin-left: 160px;
     margin-top: 15px;
 }
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 0;
+    flex-direction: column;
+}
+
+.tabs {
+    display: flex;
+    position: relative;
+    background-color: #fff;
+    padding: 0.25rem;
+    margin-left: 0;
+}
+  
+.tabs * {
+    z-index: 2;
+}
+  
+.container input[type="radio"] {
+    display: none;
+}
+  
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 90px;
+    font-size: 0.8rem;
+    color: black;
+    font-weight: 500;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: color 0.15s ease-in;
+}
+
+.tabs .tab {
+    transition: color 0.15s ease-in;
+}
+  
+.notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 0.8rem;
+    position: absolute;
+    top: -0.3rem;
+    left: auto;
+    font-size: 10px;
+    margin-left: 5rem;
+    border-radius: 8px;
+    margin: 0px;
+    background-color: #e6eef9;
+    transition: 0.15s ease-in;
+}
+  
+#radio-1:checked ~ .tabs label[for="radio-1"],
+#radio-2:checked ~ .tabs label[for="radio-2"] {
+  color: #185ee0;
+}
+
+#radio-1:checked ~ .tabs .glider {
+    transform: translateX(0%);
+  }
+#radio-2:checked ~ .tabs .glider {
+    transform: translateX(100%);
+  }
+  
+.glider {
+    position: absolute;
+    display: flex;
+    height: 30px;
+    width: 90px;
+    background-color: #e6eef9;
+    z-index: 1;
+    border-radius: 8px;
+    transition: 0.15s ease-out;
+}
+  
+@media (max-width: 700px) {
+    .tabs {
+      transform: scale(0.6);
+    }
+}
+
+.container > input[type="radio"] { display: none; }
+
+#radio-1:checked ~ .tab-content #content-1 { display: block; }
+#radio-2:checked ~ .tab-content #content-2 { display: block; }
+
+.tab-pane { display: none; }
+
+.tab-content {
+    margin-top: 10px;
+}
+
+.education-part {
+    display: flex;
+    gap: 20px;
+    width: 60%;
+
+}
+
+.job {
+    font-size: 14px;
+    color: #6c757d; /* приятный серый цвет, можно заменить на #999 или #aaa */
+    margin-top: 3px;
+}
