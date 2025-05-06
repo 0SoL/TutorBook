@@ -1,0 +1,201 @@
+.form-card-wrap {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 400px;
+    border-color: red;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.booking {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.avatar-info-wrap {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Расстояние между аватаркой и текстом */
+    margin: 10px 0;
+    
+}
+
+.avatar img {
+    width: 90px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.info h3 {
+    margin: 0;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+.info p {
+    margin: 5px 0 0 0;
+    color: gray;
+    font-size: 0.95em;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-input {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+}
+
+.form-input:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #f9f9f9;
+}
+
+.custom-schedule-slot select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 2px solid #ccc;
+}
+
+.custom-schedule-slot p {
+    color: gray;
+    font-size: 0.8em;
+    margin-left: 2px;
+    margin-top: 5px;
+}
+
+.submit-button {
+    background-color: #0066ff;
+    color: #fff;
+    border: 0;
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .3s ease;
+}
+
+.submit-button.hover {
+    background-color: #005ce6;  
+}
+
+.submit-button-wrap {
+    display: flex;
+    justify-content: space-around
+}
+
+
+/* КАЛЕНДАРЬ */
+
+.booking-panel {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    font-family: "Segoe UI", sans-serif;
+  }
+.dates-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+.date-item {
+    padding: 10px 4px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+    user-select: none;
+  }
+.date-item:hover {
+    background: #e3f2fd;
+  }
+.date-item.selected {
+    background: #144ddf;
+    font-weight: 600;
+}
+.slots-section {
+    padding: 12px 16px;
+}
+.slots-section h4 {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #333;
+  }
+.slot-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+.slot {
+    padding: 8px 14px;
+    border: 1px solid #90caf9;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+  }
+.slot:hover {
+    background: #e3f2fd;
+  }
+.slot.selected {
+    background: #42a5f5;
+    border-color: #1e88e5;
+    color: #fff;
+    font-weight: 500;
+  }
+
+.date-item.selected {
+    background-color: #e0f7fa;
+    font-weight: bold;
+  }
+.slot.selected {
+    background-color: #ffe082;
+    border-color: #ffca28;
+  }
+
+.date-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 8px 16px;
+  }
+
+.date-selector button {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform .2s;
+  }
+.date-selector button:hover {
+    transform: scale(1.2);
+  }
+#week-range {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+.slots-section i {
+    margin-right: 10px;
+}

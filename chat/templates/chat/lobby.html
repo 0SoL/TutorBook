@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="chat-header">
+    {% if request.user == room.student.user %}
+        <!-- Студент — значит собеседник это учитель -->
+        <img src="{% if room.teacher.avatar %}{{ room.teacher.avatar.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Avatar" class="chat-avatar">
+        <h2 class="chat-username">{{ room.teacher.user.username }}</h2>
+    {% else %}
+        <!-- Учитель — значит собеседник это студент -->
+        <img src="{% if room.student.avatar %}{{ room.student.avatar.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Avatar" class="chat-avatar">
+        <h2 class="chat-username">{{ room.student.user.username }}</h2>
+    {% endif %}
+</div>
+
+<div id="chat-log" class="chat-log">
+    {% for message in messages %}
+        <div class="{% if message.sender.id == request.user.id %}message-sent{% else %}message-received{% endif %}">
+            <div class="message-text">
+                {{ message.text }}
+            </div>
+            <div class="message-time">
+                {{ message.timestamp|date:"H:i" }}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="chat-input-wrap">
+    <input id="chat-message-input" type="text" placeholder="Введите сообщение...">
+    <button id="chat-message-submit">Отправить</button>
+</div>
+
+<script>
+    const roomId = "{{ room.id }}";
+    const userId = "{{ request.user.id }}";
+
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/chat/' + roomId + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const chatLog = document.getElementById('chat-log');
+        const newMessage = document.createElement('div');
+        const isMyMessage = data.sender_id == userId;
+        newMessage.classList.add(isMyMessage ? 'message-sent' : 'message-received');
+        newMessage.innerHTML = `<div class="message-text">${data.message}</div>`;
+        chatLog.appendChild(newMessage);
+        chatLog.scrollTop = chatLog.scrollHeight; // Скроллим вниз
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('WebSocket закрыт неожиданно');
+    };
+
+    document.getElementById('chat-message-submit').onclick = function(e) {
+        const inputDom = document.getElementById('chat-message-input');
+        const message = inputDom.value;
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        inputDom.value = '';
+    };
+
+    const messageInput = document.getElementById('chat-message-input');
+    const submitButton = document.getElementById('chat-message-submit');
+
+    messageInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {  // Enter без Shift
+            e.preventDefault();  // чтобы не было переноса строки
+            submitButton.click();  // симулируем нажатие кнопки
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatLog = document.getElementById('chat-log');
+        chatLog.scrollTop = chatLog.scrollHeight;
+    });
+</script>
+
+<link rel="stylesheet" href="{% static 'style/сhat/lobby.css' %}">
+{% endblock content %}

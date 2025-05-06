@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- From Uiverse.io by alexruix --> 
+<div class="form-box">
+    <form class="form" method="post">
+        {% csrf_token %}
+        <span class="title">Регистрация аккаунта учителя</span>
+        <span class="subtitle">Создайте аккаунт</span>
+
+        <div class="form-container">
+            <input type="text" name="{{ form.username.name }}" 
+                   class="input" placeholder="Имя пользователя"
+                   value="{{ form.username.value|default:'' }}">
+            {% for error in form.username.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <input type="text" name="{{ form.email.name }}" 
+                   class="input" placeholder="Почта"
+                   value="{{ form.email.value|default:'' }}">
+            {% for error in form.email.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <input type="password" name="{{ form.password1.name }}" 
+                   class="input" placeholder="Пароль">
+            {% for error in form.password1.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <input type="password" name="{{ form.password2.name }}" 
+            class="input" placeholder="Повторите пароль">
+            {% for error in form.password2.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    <div class="form-section">
+        <p>Уже есть аккаунт? <a href="{% url 'teacher-login' %}">Войти</a></p>
+        <p>Хотите зарегистрироваться как ученик? <a href="{% url 'student-register' %}">Регистрация</a></p>
+    </div>
+    
+</div>
+
+<link rel="stylesheet" href="{% static 'style/teacher/register.css' %}">
+{% endblock content %}

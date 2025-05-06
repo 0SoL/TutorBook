@@ -1,0 +1,119 @@
+.book-card-wrap {
+}
+
+.booking-list {
+    display: flex;
+    flex-wrap: wrap; /* если не влезают по ширине — переносятся вниз */
+    gap: 20px; /* расстояние между карточками */
+    padding: 10px;
+}
+
+.book-card {
+    padding: 20px;
+    border-radius: 10px;
+    border: 4px;
+    width: 300px;
+    border-color: red;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.book-card h4{
+    text-align: center;
+}
+
+.teacher-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.teacher-info img {
+    margin-top: 10px;
+    width: 70px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.teacher-name {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.teacher-info hr {
+    width: 100%;
+}
+
+.date-info {
+    display: flex;
+    gap: 90px; 
+}
+
+.date-info p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.option {
+    font-weight: 600;
+}
+
+.time-info {
+    display: flex;
+    gap: 180px; 
+}
+
+.time-info p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.duration-info {
+    display: flex;
+    gap: 110px; 
+}
+
+.duration-info p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.button-con {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.accept-button {
+    width: 120px;
+    height: 40px;
+    border: 3px solid #315cfd;
+    border-radius: 45px;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: white;
+    font-size: 1.2em;
+    font-weight: 550;
+}
+
+.accept-button:hover {
+    background: #315cfd;
+    color: white;
+}
+
+.message-button {
+    width: 120px;
+    height: 40px;
+    border: 3px solid #315cfd;
+    border-radius: 45px;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: #315cfd;
+    font-size: 1.2em;
+    font-weight: 550;
+    color: white;
+}
+
+.message-button:hover {
+    background: white;
+    color: black;
+}

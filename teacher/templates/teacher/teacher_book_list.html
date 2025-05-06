@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class='booking-list'>
+{% for book in booking %}
+<div class='book-card-wrap'>
+    <div class='book-card'>
+        <h4>Booking confirmation</h4>
+        <div class='teacher-info'>
+            <img src="{{ book.student.avatar.url }}" alt="">
+            <p class='teacher-name'>{{book.student}}</p>
+            <hr>
+            <div class='date-info'>
+                <p class='option'>Date</p>
+                <p>{{book.schedule_slot.date}}</p>
+            </div>
+            <hr>
+            <div class='time-info'>
+                <p class='option'>Time</p>
+                <p>{{book.schedule_slot.time}}</p>
+            </div>
+            <hr>
+            <div class='duration-info'>
+                <p class='option'>Duration</p>
+                <p>50 minutes</p>
+            </div>
+            <div class='button-con'>
+                {% if book.booking_status == 'pending' %}
+                <form action="{% url 'accept_booking' book.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="accept-button">Accept</button>
+                </form>
+                {% endif %}
+                <button class='message-button'>Message</button>
+            </div>
+        </div> 
+    </div>
+</div>
+{% endfor %}
+</div>
+<link rel="stylesheet" href="{% static 'style/student/booking_list.css' %}">
+{% endblock content %}

@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div>
+    <div class='filter-container'>
+        <h1>Найди себе подходящего учителя</h1>
+        <hr>
+        <form action="." method='GET'>
+            <div class='filter-blocks'>
+                <div class='filter-block'>
+                    <label for="subject-select">Хочу изучать</label><br>
+                    <select class="js-example-basic-single" name="subject-select" id='subject-select' style="width: 200px">
+                    </select>
+                </div>
+    
+                <div class='filter-block'>
+                    <label for="price-slider">Диапазон цен</label>
+                    <div id="price-slider" class="slider-styled"></div>
+                    <div style="margin-top: 8px;">
+                        <span id="price-slider-label"></span>
+                    </div>
+                    <input type="hidden" name="price_min" id="price_min">
+                    <input type="hidden" name="price_max" id="price_max">
+                </div>
+            </div>
+            <div class='button-position'>
+                <button class='filter-search-button' type='submit'>Искать</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class='teachers-cards'>
+{% if teachers %}
+    {% for teacher in teachers %}
+        <div class='teacher-card'>
+            <div class='teacher-container'>
+                <div class='teacher-image'>
+                    <img src="{{ teacher.avatar.url }}" alt="zalupa">
+                </div>
+                <div class='teacher-content'>
+                    <p>{{teacher.user.username}}</p>
+                        <div class='subject'>
+                            {% for sub in teacher.subject.all %}
+                            <i class="fa-solid fa-graduation-cap"></i><p>{{ sub.name }}</p>
+                            {% empty %}
+                            <p>Нет предметов</p>
+                            {% endfor %}
+                        </div>
+                        <div class='teacher-price'>
+                            <div class='price-row'>
+                                <i class="fa-solid fa-money-bill"></i>
+                                <p>{{teacher.price_per_hous}}₸</p>
+                            </div>
+                            <p style='font-size: 8px;'>Цена за час урока</p>
+                        </div>
+                        <div class='teacher-staj'>
+                            <i class="fa-solid fa-briefcase"></i>
+                            <p>Стаж: {{teacher.work_experience}}</p>
+                        </div>
+                    <button class='teacher-button' id='call_modal' data-teacher-id='{{teacher.id}}'>
+                        Подробнее
+                    </button>
+                    <a href="{% url 'start_chat' teacher.id %}">
+                        <button class='book-button'>Написать</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>😕 К сожалению, по выбранным фильтрам учителей не найдено.</p>
+{% endif %}
+</div>
+
+{% for teacher in teachers %}
+    <div class='teacher-modal-container' id='modal_container_{{teacher.id}}'>
+        <div class='teacher-modal'>
+            <button class='modal-close-button' data-teacher-id='{{teacher.id}}'>&times;</button>
+            <div class='teacher-modal-header'>
+                <h2><a href="{% url 'teacher-profile-page' teacher.user.username %}">{{teacher.user.username}}</a></h2>
+            </div>
+            <div class='teacher-modal-info'>
+                <div class='bio-section'>
+                    <h2><strong>Обо мне</strong></h2>
+                    <p id="bio-text-{{teacher.id}}" class="collapsed">{{ teacher.bio }}</p>
+                    <button class='toggle-btn' id="toggle-btn-{{teacher.id}}" style="display: none;">Показать больше</button>
+                </div>
+            
+                <!-- Блок: Отзывы -->
+                <div class="info-section">
+                    <h2>Отзывы студентов</h2>
+                    <div class="stars">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <p class="review">Очень доступно отвечает! — Алия</p>
+                </div>
+            
+                <!-- Блок: Цена -->
+                <div class="price-section">
+                    <p>{{ teacher.price_per_hous }}₸</p>
+                    <a href="{% url 'lesson-booking' teacher.user.username%}">
+                        <button class='book-button'>Забронировать</button>
+                    </a>
+                </div>
+
+                <div class="price-section">
+                    <h2>График доступности</h2>
+                </div>
+
+                <div class="price-section">
+                    <h2>Сертификаты</h2>
+                </div>
+
+                <div class="price-section">
+                    <h2>Форматы занятий</h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
+<link rel="stylesheet" href="{% static 'style/teacher/teacher-card.css' %}">
+<link rel="stylesheet" href="{% static 'style/teacher/modal-teacher.css' %}">
+<script src="{% static 'js/teacher/modal-teacher.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#subject-select').select2({
+            ajax: {
+                url: '/teacher/ajax/subjects/',
+                dataType: 'json',
+                processResults: function (data) {
+                    return {
+                        results: data.results
+                    };
+                }
+            }
+        });
+    });
+
+    const slider = document.getElementById('price-slider');
+
+    noUiSlider.create(slider, {
+      start: [{{ request.GET.price_min|default:min_price }}, {{ request.GET.price_max|default:max_price }}],
+      connect: true,
+      range: {
+        'min': {{ min_price }},
+        'max': {{ max_price }}
+      },
+      step: 1,
+      tooltips: true,
+      format: {
+        to: value => parseInt(value),
+        from: value => parseInt(value)
+      }
+    });
+  
+    slider.noUiSlider.on('update', function(values, handle) {
+      document.getElementById('price_min').value = values[0];
+      document.getElementById('price_max').value = values[1];
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        {% for teacher in teachers %}
+            const bioText{{teacher.id}} = document.getElementById('bio-text-{{teacher.id}}');
+            const toggleBtn{{teacher.id}} = document.getElementById('toggle-btn-{{teacher.id}}');
+            const fullText{{teacher.id}} = bioText{{teacher.id}}.textContent;
+    
+            if (fullText{{teacher.id}}.length > 100) {
+                toggleBtn{{teacher.id}}.style.display = 'inline';
+    
+                toggleBtn{{teacher.id}}.addEventListener('click', function() {
+                    bioText{{teacher.id}}.classList.toggle('collapsed');
+                    toggleBtn{{teacher.id}}.textContent = bioText{{teacher.id}}.classList.contains('collapsed') ? 'Показать больше' : 'Скрыть';
+                });
+            }
+        {% endfor %}
+    });
+</script>
+{% endblock content %}

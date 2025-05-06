@@ -1,0 +1,37 @@
+.dialogs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.dialog-card {
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: black;
+}
+
+.dialog-info {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.dialog-avatar img {
+    width: 60px;
+    border-radius: 10px;
+}
+
+.dialog-username {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.dialog-last-message {
+    font-size: 14px;
+    color: gray;
+    margin-top: 5px;
+}

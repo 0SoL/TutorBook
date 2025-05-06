@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.main {
+  font-family: Montserrat, sans-serif;
+}
+
+.teacher-card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 250px;
+  height: 100%;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.teachers-cards {
+  display: flex;
+  gap: 30px;
+}
+
+.teacher-image img {
+  border: 1px solid #03BFCB;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  padding: 5px;
+}
+
+.teacher-image{
+  height: 50%; 
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.teacher-content {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
+  margin: 10px 0;
+}
+
+.teacher-content p {
+  text-transform: uppercase;
+}
+
+.subject i {
+  font-size: 10px;
+  margin-right: 5px;
+  margin-top: 4px;
+}
+
+.subject p {
+  font-size: 13px;
+}
+
+.subject {
+  display: flex;
+}
+
+.teacher-content h3 {
+  margin-bottom: 8px;
+}
+
+.teacher-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.1;
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  
+}
+
+.price-row i{
+  font-size: 10px;
+  margin-bottom: 16px;
+  margin-right: 5px;
+}
+
+.teacher-price p {
+  font-size: 13px;
+  font-weight: 200;
+}
+
+.teacher-staj {
+  display: flex;
+}
+
+.teacher-staj i {
+  font-size: 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.teacher-staj p {
+  font-size: 13px;
+}
+
+
+/* From Uiverse.io by Mhyar-nsi */ 
+.teacher-button {
+  background-color: #f3f7fe;
+  color: #3b82f6;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 120px;
+  height: 45px;
+  transition: 0.3s;
+  margin-bottom: 10px;
+}
+
+.teacher-button:hover {
+  background-color: #3b82f6;
+  box-shadow: 0 0 0 5px #3b83f65f;
+  color: #fff;
+}
+
+/* FILTER BAR */
+
+.filter-container {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  width: 100%;
+  height: 100%;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.filter-container h1 {
+  text-align: center;
+}
+
+.filter-block {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.filter-blocks {
+  display: flex;
+  gap: 30px;
+  margin-left: 20px;
+}
+
+.filter-search-button {
+  background-color: #f3f7fe;
+  color: #3b82f6;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 120px;
+  height: 45px;
+  transition: 0.3s;
+  margin-bottom: 10px;
+}
+
+.filter-search-button:hover {
+  background-color: #3b82f6;
+  box-shadow: 0 0 0 5px #3b83f65f;
+  color: #fff;
+}
+
+.button-position {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+/* slider */
+
+#price-slider {
+  margin-top: 1rem;
+  height: 6px;
+  width: 190px;
+  top: 21px;
+}
+
+.slider-styled,
+.slider-styled .noUi-handle {
+    box-shadow: none;
+}
+
+.slider-styled .noUi-handle::before,
+.slider-styled .noUi-handle::after {
+    display: none;
+}
+
+#price-slider .noUi-handle {
+  height: 18px;
+  width: 18px;
+  top: -5px;
+  right: -9px; /* half the width */
+  border-radius: 9px;
+}
+
+.noUi-tooltip {
+  display: block;
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #26A69A;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Маленький треугольник под тултипом */
+.noUi-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #26A69A transparent transparent transparent;
+}
+
+/* Показывать тултип только при фокусе или активном состоянии */
+.noUi-handle:active .noUi-tooltip,
+.noUi-handle:focus .noUi-tooltip {
+  opacity: 1;
+}
+

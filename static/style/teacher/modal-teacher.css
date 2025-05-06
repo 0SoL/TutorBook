@@ -1,0 +1,125 @@
+.teacher-modal-container {
+    position: fixed;
+    border-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.teacher-modal {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 500px;
+    padding: 30px 50px;
+    max-width: 100%;
+	border-radius: 20px;
+    background: white;
+    position: relative;
+}
+
+.teacher-modal-container.show {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.teacher-modal-header {
+    text-transform: capitalize;
+
+}
+
+.teacher-modal-info h2{
+    font-size: 18px;
+}
+
+.teacher-modal-info p{
+    font-size: 12px;
+}
+
+.teacher-modal-info span{
+    font-size: 12px;
+}
+
+.price-section p {
+    font-size: 20px;
+}
+
+.price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-button {
+    background-color: #f3f7fe;
+    color: #3b82f6;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 145px;
+    height: 45px;
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+
+.book-button:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 5px #3b83f65f;
+    color: #fff;
+  }
+  
+
+.checked {
+    color: orange;
+  }
+
+.modal-close-button {
+    position: absolute;
+    top: 30x;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    z-index: 10;
+}
+
+.modal-close-button:hover {
+    color: #000;
+}
+
+
+.collapsed {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Сколько строк показать */
+    -webkit-box-orient: vertical;
+    max-height: 4.5em; /* fallback для браузеров без clamp */
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+}
+
+.bio-section p {
+    transition: all 0.3s ease;
+  }
+
+.teacher-modal-header a {
+    text-decoration: none;
+}

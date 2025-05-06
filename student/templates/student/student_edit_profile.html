@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div>
+    <div>
+        <h1>Edit Profile</h1>
+        <hr>
+    </div>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+
+            <img src="{{student.avatar.url}}" alt="" class="student-avatar">
+        
+            <div class="custom-file-upload">
+                <label for="custom-avatar" class="avatar-btn">Загрузить аватар</label>
+                {{ student_form.avatar }}
+            </div>
+        
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="{% static 'style/student/student_edit_profile.css' %}">
+{% endblock content %}

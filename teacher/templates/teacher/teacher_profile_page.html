@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class='profile'>
+    <div class='avatar-section'>
+        <img src="{{ teacher_profile.avatar.url }}" alt="Аватар учителя">
+    </div>
+    <div class='info-section'>
+        <h1>{{teacher_profile.user.username}}</h1>
+        {% for sub in teacher_profile.subject.all %}
+        <i class="fa-solid fa-graduation-cap"></i><span><strong>Преподает</strong></span>
+        <p>{{sub.name}}</p>
+        {% endfor %}
+    </div>
+</div>
+<div class='bio-section'>
+    <h3><strong>Обо мне</strong></h3>
+    <p id="bio-text" class="collapsed">{{ teacher_profile.bio }}</p>
+    <button id="toggle-btn" style="display: none;">Показать больше</button>
+</div>
+<div class='date-section'>
+    <h3><strong>Расписание</strong></h3>
+    <table border="1" cellpadding="10">
+      <tr>
+          {% for date in grouped_schedule %}
+              <th>{{ date|date:"D, d M" }}</th>
+          {% endfor %}
+      </tr>
+      <tr>
+          {% for date, slots in grouped_schedule.items %}
+              <td>
+                  {% for slot in slots %}
+                      <div style="margin-bottom: 6px;">
+                          {{ slot.time|time:"H:i" }}
+                          {% if slot.is_booked %}
+                              <span style="color: red;">(Занято)</span>
+                          {% else %}
+                              <span style="color: green;">(Свободно)</span>
+                          {% endif %}
+                      </div>
+                  {% endfor %}
+              </td>
+          {% endfor %}
+      </tr>
+  </table>
+</div>
+<div class='resume-section'>
+    <h3>Резюме</h3>
+</div>
+
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const bioText = document.getElementById('bio-text');
+      const toggleBtn = document.getElementById('toggle-btn');
+    
+      const fullText = bioText.textContent;
+    
+      if (fullText.length > 100) {
+        toggleBtn.style.display = 'inline';
+    
+        toggleBtn.addEventListener('click', function() {
+          bioText.classList.toggle('collapsed');
+          toggleBtn.textContent = bioText.classList.contains('collapsed') ? 'Показать больше' : 'Скрыть';
+        });
+      }
+    });
+</script>
+
+
+<link rel="stylesheet" href="{% static 'style/teacher/teacher_profile.css' %}">
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<form class="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <span class="title">Создание профиля ученика</span>
+    <span class="subtitle">Заполните информацию о себе</span>
+
+
+    <label for="avatar-upload">Загрузить аватар</label>
+    <input type="file" name="{{ form.avatar.name }}" id="avatar-upload" class="input">
+    {% for error in form.avatar.errors %}
+        <p class="error">{{ error }}</p>
+    {% endfor %}
+
+
+    <button type="submit">Сохранить</button>
+</form>
+
+
+
+
+
+
+
+
+
+{% endblock content %}

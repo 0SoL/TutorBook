@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="form-box">
+    <form class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <span class="title">Создание профиля учителя</span>
+        <span class="subtitle">Заполните информацию о себе</span>
+
+        <div class="form-container">
+            <textarea type="text" name="{{ form.bio.name }}" 
+                   class="input" placeholder="Расскажите о себе"
+                   value="{{ form.bio.value|default:'' }}">
+            </textarea>
+            {% for error in form.bio.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            {{ form.subject }}
+            {% for error in form.subject.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <input type="text" name="{{ form.price_per_hous.name }}" 
+                   class="input" placeholder="Цена урока за час">
+            {% for error in form.price_per_hous.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <input type="text" name="{{ form.work_experience.name }}" 
+            class="input" placeholder="Ваш стаж работы">
+            {% for error in form.work_experience.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+
+            <label for="avatar-upload">Загрузить аватар</label>
+            <input type="file" name="{{ form.avatar.name }}" id="avatar-upload" class="input">
+            {% for error in form.avatar.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <button type="submit">Сохранить</button>
+    </form>
+</div>
+
+
+
+<link rel="stylesheet" href="{% static 'style/teacher/profile_creation.css' %}">
+
+
+
+
+{% endblock content %}

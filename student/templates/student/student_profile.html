@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<div class='profile'>
+    <div class='avatar-section'>
+        <img src="{{ student.avatar.url }}" alt="Аватар ученика">
+    </div>
+    <div class='info-section'>
+        <h1>{{student.user.username}}</h1>
+        <a href="{% url 'student-edit-profile' %}" class='edit-profile'><i class="fa-solid fa-user-pen"></i></a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="{% static 'style/student/student_profile.css' %}">
+{% endblock content %}

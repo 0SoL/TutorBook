@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<h2>Ваши диалоги</h2>
+
+<div class="dialogs-list">
+    {% for room in chatrooms %}
+        <a href="{% url 'chat_room' room.id %}" class="dialog-card">
+            <div class="dialog-info">
+                <div class='dialog-avatar'>
+                    <img src="{{ room.student.avatar.url }}" alt="">
+                </div>
+                <div class="dialog-username">
+                    {{ room.student.user.username }}
+                    {% with last_message=room.messages.last %}
+                    {% if last_message %}
+                        <div class="dialog-last-message">
+                            {{ last_message.text|truncatechars:50 }}
+                        </div>
+                    {% else %}
+                        <div class="dialog-last-message">
+                            Нет сообщений
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                </div>
+            </div>
+        </a>
+    {% empty %}
+        <p>У вас пока нет диалогов.</p>
+    {% endfor %}
+</div>
+
+
+<link rel="stylesheet" href="{% static 'style/сhat/dialogs.css' %}">
+{% endblock content %}
