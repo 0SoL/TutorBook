@@ -54,6 +54,23 @@
     </div>
   </div>
 <div class='date-section'>
+    <h3><strong>Отзывы</strong></h3>
+    {% for rev in reviews %}
+        <img src="{% static rev.student.avatar.url %}" alt="" style='width: 40px;'>
+        {{rev.student.user.username}}
+        <div class="stars">
+            {% for i in "12345" %}
+                {% if forloop.counter <= rev.rating %}
+                    <span class="star filled">&#9733;</span> {# заполняемая звезда ★ #}
+                {% else %}
+                    <span class="star">&#9734;</span> {# пустая звезда ☆ #}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {{rev.comment}}
+    {% endfor %}
+</div>
+<div class='date-section'>
     <h3><strong>Расписание</strong></h3>
     {% if grouped_schedule %}
         <table border="1" cellpadding="10">
@@ -87,8 +104,20 @@
 
 
 
-
-
+<style>
+    .stars {
+        margin-bottom: 10px;
+    }
+    
+    .star {
+        font-size: 18px;
+        color: #ccc;
+    }
+    
+    .star.filled {
+        color: gold;
+    }
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

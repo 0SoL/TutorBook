@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
-from .models import Teacher, Subject, ScheduleSlot
+from .models import Teacher, Subject, ScheduleSlot, Review
 from .forms import CustomUserCreationForm, TeacherProfileForm, ScheduleGenerationForm
 from user.models import CustomUser
 from .services.generate_schedule_slot import generate_schedule_slot
@@ -148,6 +148,7 @@ def teacher_profile_page(request, username):
     teacher_profile = get_object_or_404(Teacher, user__username=username)
     today = timezone.now().date()
     next_week = today + timedelta(days=7)
+    reviews = Review.objects.filter(teacher=teacher_profile)
     
     slots = ScheduleSlot.objects.filter(
         teacher=teacher_profile,
@@ -159,7 +160,8 @@ def teacher_profile_page(request, username):
         grouped_schedule[slot.date].append(slot)
     
     context = {'teacher_profile' : teacher_profile,
-               'grouped_schedule' : dict(grouped_schedule),}
+               'grouped_schedule' : dict(grouped_schedule),
+               'reviews' : reviews}
     
     return render(request, 'teacher/teacher_profile_page.html', context)
     

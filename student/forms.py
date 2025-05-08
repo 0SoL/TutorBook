@@ -4,6 +4,7 @@ from .models import Student
 from django import forms
 from django.contrib.auth import get_user_model
 from django.forms.widgets import ClearableFileInput
+from teacher.models import Review
 
 User = get_user_model()
 
@@ -40,3 +41,13 @@ class StudentEditUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('phone_number',)
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ('rating', 'comment',)
+        widgets = {
+            'rating': forms.RadioSelect(attrs={'class': 'star-rating'}),
+            'comment': forms.Textarea(attrs={'placeholder': 'Ваш отзыв...'}),
+        }

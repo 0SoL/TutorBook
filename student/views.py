@@ -3,8 +3,12 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
 from .models import Student
-from .forms import StudentProfileCreationForm, StudentEditProfileForm, StudentEditUserForm
+from .forms import StudentProfileCreationForm, StudentEditProfileForm, StudentEditUserForm, ReviewForm
 from booking.models import Booking
+from teacher.models import Teacher, Review
+from django.http import HttpResponse
+
+
 
 # Create your views here.
 def student_register(request):
@@ -101,3 +105,25 @@ def booking_list(request):
     
     return render(request, 'student/booking_list.html' , context)
 
+
+def review_form(request, teacher_id):
+    student = request.user.student
+    teacher = get_object_or_404(Teacher, id=teacher_id)
+    
+    # if Review.objects.filter(teacher=teacher, student=student).exists():
+    #     return HttpResponse("Вы уже оставляли отзыв.")
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.teacher = teacher
+            review.student = student
+            review.save()
+            return redirect('booking-list')
+    else:
+        form = ReviewForm()
+    
+    return render(request, 'student/review.html', {'form' : form, 'teacher' : teacher})
+        
