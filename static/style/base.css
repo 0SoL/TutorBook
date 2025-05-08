@@ -120,6 +120,7 @@
     max-height: 0px;
     overflow: hidden;
     transition: max-height 0.5s;
+    z-index: 100;
 }
 
 .sub-menu-wrap.open-menu {
@@ -191,6 +192,7 @@
     max-height: 0px;
     overflow: hidden;
     transition: max-height 0.5s;
+    z-index: 100;
 }
 
 .sub-notification {
@@ -218,6 +220,7 @@
     max-height: 0px;
     overflow: hidden;
     transition: max-height 0.5s;
+    z-index: 100;
 }
 
 .sub-messages {

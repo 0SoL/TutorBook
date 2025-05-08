@@ -36,7 +36,7 @@
             {% elif teacher_profile and teacher_profile.avatar %}
                 <img src="{{ teacher_profile.avatar.url }}" alt="Teacher Avatar" class="navbar-avatar" onclick='toggleMenu()' id='avatar'>
             {% else %}
-                <img src="{% static 'default_avatar.png' %}" alt="Default Avatar" class="navbar-avatar" onclick='toggleMenu()' id='avatar'>
+                <img src="{% static 'images/avatar_threshold.png' %}" alt="Default Avatar" class="navbar-avatar" onclick='toggleMenu()' id='avatar'>
             {% endif %}
         </div>
 
@@ -136,14 +136,15 @@
                     {% elif teacher_profile and teacher_profile.avatar %}
                         <img src="{{ teacher_profile.avatar.url }}" alt="Teacher Avatar" class="sub-menu-avatar">
                     {% else %}
-                        <img src="{% static 'default_avatar.png' %}" alt="Default Avatar" class="sub-menu-avatar">
+                        <img src="{% static 'images/avatar_threshold.png' %}" alt="Default Avatar" class="sub-menu-avatar">
                     {% endif %}
+                
                     {% if student_profile and student_profile.user.username %}
-                        <h2>{{student_profile.user.username}}</h2>
+                        <h2>{{ student_profile.user.username }}</h2>
                     {% elif teacher_profile and teacher_profile.user.username %}
-                        <h2>{{teacher_profile.user.username}}</h2>
+                        <h2>{{ teacher_profile.user.username }}</h2>
                     {% else %}
-                        <img src="{% static 'default_avatar.png' %}" alt="Default Avatar" class="sub-menu-avatar">
+                        <h2>Гость</h2>  {# или просто ничего #}
                     {% endif %}
                 </div>
                 <hr>
@@ -180,11 +181,21 @@
                     <span>></span>
                 </a>
                 {% endif %}
-                <a href="{% url 'teacher-logout' %}" class='sub-menu-link'>
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <p>Выйти</p>
-                    <span>></span>
-                </a>
+
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'teacher-logout' %}" class='sub-menu-link'>
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <p>Выйти</p>
+                        <span>></span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'teacher-login' %}" class='sub-menu-link'>
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <p>Войти</p>
+                        <span>></span>
+                    </a>
+                {% endif %}
+
             </div>
         </div>
     </div>
