@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class='review-card'>
+    <h1>Оставьте отзыв</h1>
+    <div class='teacher-info'>
+        <img src="{% static teacher.avatar.url %}" alt="">
+        <p>{{teacher.user.username}}</p>
+    </div>
+
+
+
+    <form method='POST'>
+        {% csrf_token %}
+        <div class="star-rating">
+            {% for i in "54321" %}
+                <input type="radio" name="rating" id="star{{ i }}" value="{{ i }}">
+                <label for="star{{ i }}">&#9733;</label>
+            {% endfor %}
+        </div>
+    
+        <div class=>
+            {{ form.comment }}
+        </div>
+    
+        <div class='button-position'>
+            <button type='submit' class='review-button '>Оставить отзыв</button>
+        </div>
+
+    </form>
+</div>
+
+
+
+
+
+<link rel="stylesheet" href="{% static 'style/student/review.css' %}">
+
+
+{% endblock content %}
