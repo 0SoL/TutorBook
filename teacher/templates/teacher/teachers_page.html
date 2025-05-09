@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load youtube_filter %}
 {% block content %}
 <div>
     <div class='filter-container'>
@@ -30,47 +31,56 @@
     </div>
 </div>
 <div class='teachers-cards'>
-{% if teachers %}
-    {% for teacher in teachers %}
-        <div class='teacher-card'>
-            <div class='teacher-container'>
-                <div class='teacher-image'>
-                    <img src="{{ teacher.avatar.url }}" alt="zalupa">
-                </div>
-                <div class='teacher-content'>
-                    <p>{{teacher.user.username}}</p>
-                        <div class='subject'>
-                            {% for sub in teacher.subject.all %}
-                            <i class="fa-solid fa-graduation-cap"></i><p>{{ sub.name }}</p>
-                            {% empty %}
-                            <p>Нет предметов</p>
-                            {% endfor %}
+    {% if teachers %}
+        {% for teacher in teachers %}
+            <div class='teacher-card-wrapper'>
+                <div class='teacher-card'>
+                    <div class='teacher-container'>
+                        <div class='teacher-image'>
+                            <img src="{{ teacher.avatar.url }}" alt="zalupa">
                         </div>
-                        <div class='teacher-price'>
-                            <div class='price-row'>
-                                <i class="fa-solid fa-money-bill"></i>
-                                <p>{{teacher.price_per_hous}}₸</p>
+                        <div class='teacher-content'>
+                            <p>{{teacher.user.username}}</p>
+                            <div class='subject'>
+                                {% for sub in teacher.subject.all %}
+                                <i class="fa-solid fa-graduation-cap"></i><p>{{ sub.name }}</p>
+                                {% empty %}
+                                <p>Нет предметов</p>
+                                {% endfor %}
                             </div>
-                            <p style='font-size: 8px;'>Цена за час урока</p>
+                            <div class='teacher-price'>
+                                <div class='price-row'>
+                                    <i class="fa-solid fa-money-bill"></i>
+                                    <p>{{teacher.price_per_hous}}₸</p>
+                                </div>
+                                <p style='font-size: 8px;'>Цена за час урока</p>
+                            </div>
+                            <div class='teacher-staj'>
+                                <i class="fa-solid fa-briefcase"></i>
+                                <p>Стаж: {{teacher.work_experience}}</p>
+                            </div>
+                            <button class='teacher-button' id='call_modal' data-teacher-id='{{teacher.id}}'>
+                                Подробнее
+                            </button>
+                            <a href="{% url 'start_chat' teacher.id %}">
+                                <button class='book-button'>Написать</button>
+                            </a>
                         </div>
-                        <div class='teacher-staj'>
-                            <i class="fa-solid fa-briefcase"></i>
-                            <p>Стаж: {{teacher.work_experience}}</p>
-                        </div>
-                    <button class='teacher-button' id='call_modal' data-teacher-id='{{teacher.id}}'>
-                        Подробнее
-                    </button>
-                    <a href="{% url 'start_chat' teacher.id %}">
-                        <button class='book-button'>Написать</button>
-                    </a>
+                    </div>
                 </div>
+                {% if teacher.video_intro %}
+                <div class='video-preview'>
+                    <iframe src="https://www.youtube.com/embed/{{ teacher.video_intro|youtube_id }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                {% endif %}
             </div>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>😕 К сожалению, по выбранным фильтрам учителей не найдено.</p>
-{% endif %}
-</div>
+        {% endfor %}
+    {% else %}
+        <p>😕 К сожалению, по выбранным фильтрам учителей не найдено.</p>
+    {% endif %}
+    </div>
+
+
 
 {% for teacher in teachers %}
     <div class='teacher-modal-container' id='modal_container_{{teacher.id}}'>
