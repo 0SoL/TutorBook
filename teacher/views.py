@@ -40,7 +40,7 @@ def login_view(request):
         if user is not None:
             login(request,user)
             messages.success(request, ('Вы успешно зашли'))
-            return redirect('home')
+            return redirect('teachers-list')
         else:
             messages.error(request, ("Вы ввели неправильные данные"))
             return redirect('teacher-login')
@@ -52,11 +52,11 @@ def login_view(request):
 def logout_user(request):
     logout(request)
     messages.success(request, ("Вы успешно вышли"))
-    return redirect('home')
+    return redirect('teachers-list')
 
 def teacher_profile_creation(request):
     if request.user.role != 'teacher':
-        return redirect('home')
+        return redirect('teachers-list')
     
     try:
         profile = request.user.teacher
@@ -71,7 +71,7 @@ def teacher_profile_creation(request):
             teacher.save()
             form.save_m2m()
             messages.success(request, 'Профиль успешно обновлен!')
-            return redirect('home')
+            return redirect('teachers-list')
     else:
         form = TeacherProfileForm
     

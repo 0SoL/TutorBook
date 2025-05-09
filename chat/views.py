@@ -6,14 +6,15 @@ from django.db.models import Max
 
 # Create your views here.
 def chat_room(request, room_id):
+    if not request.user.is_authenticated:
+        return redirect('teacher-login')
     # Получаем комнату по ID
     room = get_object_or_404(ChatRoom, id=room_id)
-
-    # Проверка, что пользователь имеет право тут быть
+    
     if request.user != room.student.user and request.user != room.teacher.user:
-        return render(request, '403.html')  # Страница ошибки доступа
+        return render(request, '403.html')  
 
-    # Все сообщения этой комнаты
+
     messages = room.messages.order_by('timestamp')
 
     context = {
@@ -23,6 +24,10 @@ def chat_room(request, room_id):
     return render(request, 'chat/lobby.html', context)
 
 def start_chat(request, teacher_id):
+    if not request.user.is_authenticated:
+        return redirect('teacher-login')
+    
+    
     teacher = get_object_or_404(Teacher, id=teacher_id)
 
     
@@ -37,6 +42,9 @@ def start_chat(request, teacher_id):
     return redirect('chat_room', room_id=chat_room.id)
 
 def dialog_list(request):
+    if not request.user.is_authenticated:
+        return redirect('teacher-login')
+    
     student = get_object_or_404(Student, user=request.user)
     
     chatrooms = ChatRoom.objects.filter(student=student)
@@ -50,6 +58,8 @@ def dialog_list(request):
     return render(request, 'chat/dialogs.html', context)
 
 def teacher_dialogs_list(request):
+    if not request.user.is_authenticated:
+        return redirect('teacher-login')
     # Получаем учителя
     teacher = get_object_or_404(Teacher, user=request.user)
 

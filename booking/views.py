@@ -8,6 +8,8 @@ from datetime import date
 
 # Create your views here.
 def lesson_booking(request, username):
+    if not request.user.is_authenticated:
+        return redirect('teacher-login')
     teacher = get_object_or_404(Teacher, user__username=username)
     student = get_object_or_404(Student, user=request.user)
     if request.method == 'POST':

@@ -42,7 +42,7 @@ def student_profile(request):
 
 def student_profile_creation(request):
     if request.user.role != 'student':
-        return redirect('home')
+        return redirect('teachers-list')
     
     try:
         profile = request.user.student
@@ -57,7 +57,7 @@ def student_profile_creation(request):
             student.save()
             form.save_m2m()
             messages.success(request, 'Профиль успешно обновлен!')
-            return redirect('home')
+            return redirect('teachers-list')
     else:
         form = StudentProfileCreationForm
         
@@ -94,7 +94,7 @@ def student_edit_profile(request):
 def booking_list(request):
     student = request.user.student
     if request.user.role != 'student':
-        return redirect('home')
+        return redirect('teachers-list')
     
     booking = Booking.objects.filter(
         student = student,
