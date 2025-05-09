@@ -6,11 +6,11 @@
 <div class="chat-header">
     {% if request.user == room.student.user %}
         <!-- Студент — значит собеседник это учитель -->
-        <img src="{% if room.teacher.avatar %}{{ room.teacher.avatar.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Avatar" class="chat-avatar">
+        <img src="{% if room.teacher.avatar %}{% static room.teacher.avatar.url %}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Avatar" class="chat-avatar">
         <h2 class="chat-username">{{ room.teacher.user.username }}</h2>
     {% else %}
         <!-- Учитель — значит собеседник это студент -->
-        <img src="{% if room.student.avatar %}{{ room.student.avatar.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Avatar" class="chat-avatar">
+        <img src="{% if room.student.avatar %}{% static room.student.avatar.url %}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Avatar" class="chat-avatar">
         <h2 class="chat-username">{{ room.student.user.username }}</h2>
     {% endif %}
 </div>

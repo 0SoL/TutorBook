@@ -11,7 +11,7 @@
         <a href="{% url 'chat_room' room.id %}" class="dialog-card">
             <div class="dialog-info">
                 <div class='dialog-avatar'>
-                    <img src="{{ room.student.avatar.url }}" alt="">
+                    <img src="{% static room.student.avatar.url %}" alt="">
                 </div>
                 <div class="dialog-username">
                     {{ room.student.user.username }}

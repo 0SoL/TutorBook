@@ -32,9 +32,9 @@
             <i class="fa-solid fa-message" onclick='toggleMenuMess()'></i>
             <i class="fa-solid fa-bell" onclick='toggleMenuNot()'></i>
             {% if student_profile and student_profile.avatar %}
-            <img src="{{ student_profile.avatar.url }}" alt="Student Avatar" class="navbar-avatar" onclick='toggleMenu()' id='avatar'>
+            <img src="{% static student_profile.avatar.url %}" alt="Student Avatar" class="navbar-avatar" onclick='toggleMenu()' id='avatar'>
             {% elif teacher_profile and teacher_profile.avatar %}
-                <img src="{{ teacher_profile.avatar.url }}" alt="Teacher Avatar" class="navbar-avatar" onclick='toggleMenu()' id='avatar'>
+                <img src="{% static teacher_profile.avatar.url %}" alt="Teacher Avatar" class="navbar-avatar" onclick='toggleMenu()' id='avatar'>
             {% else %}
                 <img src="{% static 'images/avatar_threshold.png' %}" alt="Default Avatar" class="navbar-avatar" onclick='toggleMenu()' id='avatar'>
             {% endif %}
