@@ -132,9 +132,9 @@
             <div class='sub-menu'>
                 <div class='user-info'>
                     {% if student_profile and student_profile.avatar %}
-                        <img src="{{ student_profile.avatar.url }}" alt="Student Avatar" class="sub-menu-avatar">
+                        <img src="{% static student_profile.avatar.url %}" alt="Student Avatar" class="sub-menu-avatar">
                     {% elif teacher_profile and teacher_profile.avatar %}
-                        <img src="{{ teacher_profile.avatar.url }}" alt="Teacher Avatar" class="sub-menu-avatar">
+                        <img src="{% static  teacher_profile.avatar.url % }" alt="Teacher Avatar" class="sub-menu-avatar">
                     {% else %}
                         <img src="{% static 'images/avatar_threshold.png' %}" alt="Default Avatar" class="sub-menu-avatar">
                     {% endif %}

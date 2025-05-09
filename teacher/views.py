@@ -179,7 +179,7 @@ def schedule_form_view(request):
                 work_days=schedule_data['work_days']
                 )
             messages.success(request, 'Вы успешно создали расписание!')
-            return redirect('home')
+            return redirect('teacher-list')
     else:
         form = ScheduleGenerationForm()
     return render(request, 'teacher/schedule_form.html', {'form' : form})
