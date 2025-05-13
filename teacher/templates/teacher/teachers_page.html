@@ -36,41 +36,68 @@
             <div class='teacher-card-wrapper'>
                 <div class='teacher-card'>
                     <div class='teacher-container'>
-                        <div class='teacher-image'>
-                            <img src="{% static teacher.avatar.url %}" alt="">
-                        </div>
-                        <div class='teacher-content'>
-                            <p>{{teacher.user.username}}</p>
-                            <div class='subject'>
-                                {% for sub in teacher.subject.all %}
-                                <i class="fa-solid fa-graduation-cap"></i><p>{{ sub.name }}</p>
-                                {% empty %}
-                                <p>Нет предметов</p>
-                                {% endfor %}
+                        <div class='teacher-header'>
+                            <div class='teacher-image'>
+                                <img src="{% static teacher.avatar.url %}" alt="">
                             </div>
-                            <div class='teacher-price'>
-                                <div class='price-row'>
-                                    <i class="fa-solid fa-money-bill"></i>
-                                    <p>{{teacher.price_per_hous}}₸</p>
+                            <div class='teacher-content'>
+                                <div class='teacher-username'>
+                                    <p>{{teacher.user.username}}</p>
                                 </div>
-                                <p style='font-size: 8px;'>Цена за час урока</p>
+                                <div class='subject'>
+                                    {% for sub in teacher.subject.all %}
+                                    <i class="fa-solid fa-graduation-cap"></i><p>{{ sub.name }}</p>
+                                    {% empty %}
+                                    <p>Нет предметов</p>
+                                    {% endfor %}
+                                </div>
+                                <div class='teacher-staj'>
+                                    <i class="fa-solid fa-briefcase"></i>
+                                    <p>Стаж: {{teacher.work_experience}}</p>
+                                </div>
+                                <div class='teacher-bio-card'>
+                                    {% comment %} <p id="bio-text-{{teacher.id}}" class="collapsed">{{ teacher.bio }}</p>
+                                    <button class='toggle-btn' id="toggle-btn-{{teacher.id}}" style="display: none;">Показать больше</button> {% endcomment %}
+                                    <p class="bio-text" data-full="{{ teacher.bio }}">{{ teacher.bio|truncatewords:14 }}</p>
+                                    {% if teacher.bio|wordcount > 14 %}
+                                        <span class="toggle-bio-btn">Читать далее</span>
+                                    {% endif %}
+                                </div>
                             </div>
-                            <div class='teacher-staj'>
-                                <i class="fa-solid fa-briefcase"></i>
-                                <p>Стаж: {{teacher.work_experience}}</p>
+                            <div class='buttons'>
+                                <div class='teacher-price'>
+                                    <div class="review">
+                                        <div class="rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <span>{{ teacher.rating }}</span>
+                                        </div>
+                                        <div class="review-count">
+                                            <span>{{ teacher.review_count }} отзывов</span>
+                                        </div>
+                                    </div>                                
+                                    <div class="price">
+                                        <div class="price-main">
+                                            <i class="fa-solid fa-money-bill"></i>
+                                            <span>{{ teacher.price_per_hous }}₸</span>
+                                        </div>
+                                        <div class="price-note">
+                                            <span>50-мин урока</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class='teacher-button' id='call_modal' data-teacher-id='{{teacher.id}}'>
+                                    Подробнее
+                                </button>
+                                <a href="{% url 'start_chat' teacher.id %}">
+                                    <button class='book-button'>Написать</button>
+                                </a>
                             </div>
-                            <button class='teacher-button' id='call_modal' data-teacher-id='{{teacher.id}}'>
-                                Подробнее
-                            </button>
-                            <a href="{% url 'start_chat' teacher.id %}">
-                                <button class='book-button'>Написать</button>
-                            </a>
                         </div>
                     </div>
                 </div>
                 {% if teacher.video_intro %}
                 <div class='video-preview'>
-                    <iframe src="https://www.youtube.com/embed/{{ teacher.video_intro|youtube_id }}" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/{{ teacher.video_intro|youtube_id }}" frameborder="0" allowfullscreen style='border-radius: 10px;'></iframe>
                 </div>
                 {% endif %}
             </div>
@@ -193,6 +220,30 @@
                 });
             }
         {% endfor %}
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleButtons = document.querySelectorAll(".toggle-bio-btn");
+    
+        toggleButtons.forEach(button => {
+            const bioText = button.previousElementSibling;
+            const fullText = bioText.getAttribute("data-full");
+            const truncated = fullText.split(" ").slice(0, 20).join(" ") + "...";
+    
+            let isExpanded = false;
+    
+            button.addEventListener("click", () => {
+                if (!isExpanded) {
+                    bioText.textContent = fullText;
+                    button.textContent = "Скрыть";
+                    isExpanded = true;
+                } else {
+                    bioText.textContent = truncated;
+                    button.textContent = "Читать далее";
+                    isExpanded = false;
+                }
+            });
+        });
     });
 </script>
 {% endblock content %}

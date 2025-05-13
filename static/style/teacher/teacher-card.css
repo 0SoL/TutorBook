@@ -9,13 +9,28 @@
   border: 2px solid transparent;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   transition: 0.3s;
-  width: 250px;
+  width: 700px;
   height: 100%;
+  min-height: 250px;
   margin-bottom: 12px;
   border-radius: 12px;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.6s ease forwards;
+}
+
+.teacher-header {
+  display: flex;
+  gap: 16px; 
+}
+
+.buttons {
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: 10px;
+  
 }
 
 .teacher-card:hover {
@@ -33,14 +48,16 @@
   display: none;
   position: absolute;
   top: 0;
-  left: 105%;
-  width: 300px;
-  height: 170px;
+  left: 46%;
+  width: 350px;
+  height: 200px;
   background: #fff;
   border: 1px solid #ccc;
+  border-radius: 10px;
   z-index: 100;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   transition: opacity 0.3s ease;
+  z-index: 100;
 }
 
 .teacher-card-wrapper:hover .video-preview {
@@ -68,7 +85,9 @@
 
 .teachers-cards {
   display: flex;
+  flex-direction: column;
   gap: 30px;
+  margin-left: 120px;
 }
 
 .teacher-image img {
@@ -77,26 +96,35 @@
   width: 150px;
   height: 150px;
   object-fit: cover;
-  display: block;
   padding: 5px;
 }
 
 .teacher-image{
   height: 50%; 
-  width: 100%;
   overflow: hidden;
   display: flex;
-  justify-content: center;
   padding-top: 10px;
+  margin: 10px;
 }
 
 .teacher-content {
   display: flex;
   flex-direction: column; 
-  justify-content: center;
-  align-items: center;
   padding-top: 5px;
   margin: 10px 0;
+  margin-top: 15px;
+  gap: 4px;
+}
+
+.teacher-username,
+.subject,
+.teacher-staj {
+  margin: 0;
+  padding: 0;
+}
+
+.teacher-username p {
+  font-size: 22px;
 }
 
 .teacher-content p {
@@ -121,23 +149,65 @@
   margin-bottom: 8px;
 }
 
+.teacher-bio-card {
+  width: 300px;
+}
+
+.toggle-bio-btn {
+  font-weight: bold;
+  color: #007bff;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.toggle-bio-btn:hover {
+  text-decoration: underline;
+}
+
+.teacher-bio-card p{
+  font-size: 12px;
+}
+
 .teacher-price {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 0.1;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 10px;
+  gap: 10px;
+  margin-bottom: 74px;
 }
 
-.price-row {
+.review, .price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rating {
   display: flex;
   align-items: center;
-  
+  gap: 5px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.price-row i{
-  font-size: 10px;
-  margin-bottom: 16px;
-  margin-right: 5px;
+.review-count span {
+  font-size: 12px;
+  color: #777; /* чтобы немного сдвинуть под рейтинг */
+}
+
+.price-main {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.price-note span {
+  font-size: 12px;
+  color: #777; /* смещение под цену */
 }
 
 .teacher-price p {
@@ -167,7 +237,7 @@
   border: none;
   cursor: pointer;
   border-radius: 8px;
-  width: 120px;
+  width: 145px;
   height: 45px;
   transition: 0.3s;
   margin-bottom: 10px;
