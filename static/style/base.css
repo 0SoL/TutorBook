@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 250px 1fr; /* навбар + основной контент */
     grid-template-rows: 80px 1fr; 
-    gap: 8px;
+    /* gap: 8px; */
 }
 
 
@@ -56,12 +56,12 @@
     grid-column: span 5 / span 5;
     grid-column-start: 1;
     grid-row-start: 1;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     padding-left: 1.25rem;
     align-items: center;
     padding-top: 0.60rem;
     margin: 5px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
 }
 
 .header a {
@@ -96,9 +96,9 @@
     grid-column: span 4 / span 4;
     grid-row: span 4 / span 4;
     grid-row-start: 2;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
     padding: 15px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin-left: 4px;
 }
 

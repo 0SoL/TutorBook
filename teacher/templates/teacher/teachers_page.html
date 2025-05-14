@@ -2,6 +2,7 @@
 {% load static %}
 {% load youtube_filter %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
 <div>
     <div class='filter-container'>
         <h1>Найди себе подходящего учителя</h1>
@@ -43,6 +44,11 @@
                             <div class='teacher-content'>
                                 <div class='teacher-username'>
                                     <p>{{teacher.user.username}}</p>
+                                    <i 
+                                    class="{{ teacher.country_of_birth.flag_css }}" 
+                                    aria-label="{{ teacher.country_of_birth.code }} флаг"
+                                    style="font-size:1.5em; margin-right:0.5em;"
+                                    ></i>
                                 </div>
                                 <div class='subject'>
                                     {% for sub in teacher.subject.all %}
@@ -69,10 +75,10 @@
                                     <div class="review">
                                         <div class="rating">
                                             <i class="fa-solid fa-star"></i>
-                                            <span>{{ teacher.rating }}</span>
+                                            <span>{{ teacher.get_avg_rating|floatformat:1 }}</span>
                                         </div>
                                         <div class="review-count">
-                                            <span>{{ teacher.review_count }} отзывов</span>
+                                            <span>{{ teacher.reviews.count }} отзывов</span>
                                         </div>
                                     </div>                                
                                     <div class="price">

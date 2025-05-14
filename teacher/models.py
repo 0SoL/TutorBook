@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from student.models import Student
 from django.conf import settings 
+from django.db.models import Avg
+from django_countries.fields import CountryField
 
 class Subject(models.Model):
     name = models.CharField(max_length=30)
@@ -21,9 +23,13 @@ class Teacher(models.Model):
     languages = models.CharField(max_length=255, blank=True, verbose_name="Языки преподавания")
     rating = models.FloatField(default=0.0, null=True, blank=True)
     review_count = models.PositiveIntegerField(default=0, null=True, blank=True)
+    country_of_birth = CountryField(verbose_name="Страна рождения", blank=True, null=True)
     
     def __str__(self):
         return f'{self.user}'
+    
+    def get_avg_rating(self):
+        return self.reviews.aggregate(avg=Avg('rating'))['avg'] or 0
 
 class ScheduleSlot(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
